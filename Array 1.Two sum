@@ -38,4 +38,4 @@ public int[] twoSum(int[] numbers, int target) {
 }
 // 利用HashMap，把target-numbers[i]的值放入hashmap中，value存index。
 遍历数组时，检查hashmap中是否已经存能和自己加一起等于target的值存在，存在的话把index取出，连同自己的index也出去，
-加1（index要求从1开始）后存入结果数组中返回。如果不存在的话，把自己的值和index存入hashmap中继续遍历。由于只是一遍遍历数组，时间复杂度为O(n)。
+存入结果数组中返回。如果不存在的话，把自己的值和index存入hashmap中继续遍历。由于只是一遍遍历数组，时间复杂度为O(n)。
