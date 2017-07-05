@@ -1,0 +1,19 @@
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums.length==0)
+            return 0;
+        int count=1;
+        for(int i=1;i<nums.length;i++)
+        {
+            if(nums[i]==nums[i-1])
+                continue;
+            else
+            {
+                nums[count]=nums[i];//重复的向前平移
+                count++;
+            }
+        }
+         return count;   
+    }
+}
+拿到题目思考边界条件 然后考虑普遍情况
