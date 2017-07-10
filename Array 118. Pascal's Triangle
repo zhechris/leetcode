@@ -3,7 +3,7 @@ public class Solution {
   {
     List<List<Integer>> rows = new ArrayList<List<Integer>>();//二维数组
 	for (int i = 1; i <= numRows; i++) 
-    {
+        {
 		List<Integer> row = new ArrayList<Integer>();
 		if (i == 1) 
 			row.add(1);
@@ -28,7 +28,7 @@ public class Solution {
 			}
 		}
 		rows.add(row);
-     }
+         }
     return rows;
    }
 }
