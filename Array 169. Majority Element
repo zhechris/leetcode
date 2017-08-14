@@ -1,0 +1,27 @@
+public class Solution {
+    public int majorityElement(int[] nums) {
+        if (nums.length==1)
+            return nums[0];
+        if (nums.length==0)
+            return 0;
+        Arrays.sort(nums);
+        int n=nums.length;
+        int majority =nums[0];
+        int time=1;
+        for(int i=1;i<n;i++)
+        {   if(nums[i]==majority )
+            {
+                time++;
+                if(time>n/2)
+                    return nums[i];
+			}
+            else
+            {
+                time=1;
+                majority =nums[i];
+            }
+        }
+        return 0;
+    }
+}
+//写到这道题为止，至少以后不要再两个for了，时间会超出，效率很低
