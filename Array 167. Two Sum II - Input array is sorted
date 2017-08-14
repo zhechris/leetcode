@@ -1,0 +1,44 @@
+//二分法最好
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int[] result = new int[2];
+        int i = 0;
+        int j = numbers.length-1;
+        while (i < j) {
+            if (numbers[i] + numbers[j] == target) {
+                result[0] = i+1;
+                result[1] = j+1;
+                break;
+            }
+            if (numbers[i] < target - numbers[j]) 
+            i++;
+            else 
+            j--;
+        }
+        return result;
+    }
+}
+//最常规的方法 但是记住要判断只能出现一次这个条件（这个方法不好）
+public class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int []index=new int[2];
+        boolean isFind = false;
+        for(int i=0;i<numbers.length;i++)
+        {
+            if(numbers[i]>target)
+                break;
+            if (isFind == false)//isfind必不可少 不然会超时
+                for(int j=i+1;j<numbers.length;j++)
+                {
+                    if(target==numbers[i]+numbers[j])
+                    {
+                        index[0]=i+1;
+                        index[1]=j+1;
+                        isFind = true;
+                        break;
+                    }
+                }
+        }
+        return index;
+    }
+}
