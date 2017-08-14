@@ -1,0 +1,20 @@
+public class Solution {
+    public int maxProfit(int[] prices)
+    {
+        if(prices.length<=0)//执行顺序很重要 这个if必须在minprice之前
+            return 0;
+        int max=0;
+        int minprice=prices[0];
+        for (int i=1;i<prices.length;i++)
+        {
+            if(minprice>prices[i])
+                minprice=prices[i];
+            else
+            {
+                if(max<prices[i]-minprice)
+                   max=prices[i]-minprice;
+            }
+        }
+        return max;
+    }
+}
