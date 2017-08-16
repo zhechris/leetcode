@@ -1,0 +1,17 @@
+//三次反转，1：反转前部分，2：反转后部分，3：整个反转
+public class Solution {  
+    public void rotate(int[] nums, int k) {  
+        int temp = k % nums.length;  
+        reverse(nums, 0, nums.length - temp - 1);  
+        reverse(nums, nums.length - temp, nums.length - 1);  
+        reverse(nums, 0, nums.length - 1);  
+    }  
+  
+    private void reverse(int[] nums, int start, int end) {  
+        for (int i = start, j = end; i < j; i++, j--) {  
+            int temp = nums[i];  
+            nums[i] = nums[j];  
+            nums[j] = temp;  
+        }  
+    }  
+} 
