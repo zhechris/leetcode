@@ -1,4 +1,7 @@
 //此题过于简单 可以忽略
+//增强的for循环内部就是调用iterator实现的，在遍历的时候就将list转化为了迭代器，
+//当迭代器被创建之后，如果从结构上对列表修改除非通过迭代器自身的remove、add方法，
+//其他任何时间任何方式的修改，迭代器都会抛出ConcurrentModificationException异常。
 public class Solution {
     public int findMaxConsecutiveOnes(int[] nums) {
         int count=0;
