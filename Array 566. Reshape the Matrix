@@ -1,0 +1,20 @@
+public class Solution {
+    public int[][] matrixReshape(int[][] nums, int r, int c) {
+        if(r*c != nums.length*nums[0].length)
+            return nums;
+        int [][] res = new int[r][c];
+        int b=nums[0].length, count=0;//原来矩阵的列数即一行有几个数字
+        for(int i=0; i<r; i++)
+        {
+            for(int j=0; j<c; j++)
+            {
+                count++;//count必须从1开始 不然count/b-1=-1会报错
+                if(count%b == 0)                     //数组里面数的提取，以后借鉴
+                    res[i][j] = nums[count/b-1][b-1];
+                else
+                    res[i][j] = nums[count/b][count%b-1]; 
+            }
+        }
+        return res;
+    }
+}
