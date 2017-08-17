@@ -1,0 +1,17 @@
+//这道题你不需要知道攻击时间 直接给出两个判断就行了
+public class Solution {
+    public int findPoisonedDuration(int[] timeSeries, int duration) {
+        int result = 0 ;
+        if(timeSeries.length == 0) return 0;
+        if(timeSeries.length == 1) return duration;
+        for(int i=0;i<timeSeries.length-1;i++)
+        {
+            if(timeSeries[i+1]-timeSeries[i]>=duration)
+                result += duration;
+            else
+                result += timeSeries[i+1]-timeSeries[i];
+        }
+        result +=duration;//加上最后一次时间
+        return result;
+    }
+}
