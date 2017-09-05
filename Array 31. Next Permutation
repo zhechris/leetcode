@@ -1,0 +1,28 @@
+//从右边开始，找到第一个正序数 nums[i] ，然后从右边找第一个大于 num[i] 的数 nums[j]（j > i），
+//找到之后交换 nums[i] 和 nums[j] ，最后将 nums[i + 1] 至 nums[nums.length - 1]之间的数进行反转
+class Solution {
+    public void nextPermutation(int[] nums) 
+    {
+        for (int i = nums.length - 2; i >= 0; i--)
+            if (nums[i] < nums[i + 1])
+                for (int j = nums.length - 1; j > i; j--)//因为已经按照降序排列，所以第一个大于的就是最小的
+                    if (nums[i] < nums[j]) 
+                    {
+                        swap(nums, i, j);
+                        reverse(nums, i + 1, nums.length - 1);
+                        return;
+                    }
+        reverse(nums, 0, nums.length - 1);//已经降序排列，直接翻转
+    }
+    private void swap(int[] nums, int left, int right) 
+    {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+    }
+    private void reverse(int[] nums, int left, int right) 
+    {
+        while (left < right)
+            swap(nums, left++, right--);
+    }
+}
