@@ -1,0 +1,11 @@
+//这道题用异或做， 相同为0，不同为1
+class Solution {
+    public int singleNumber(int[] nums) {
+        if(nums.length<1)
+            return -1;
+        int a = nums[0];
+        for(int i=1;i<nums.length;i++)
+            a=a^nums[i];
+        return a;
+    }
+}
