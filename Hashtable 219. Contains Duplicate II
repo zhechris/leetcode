@@ -1,0 +1,24 @@
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        if(nums==null||nums.length<2||k<1)
+            return false;
+        Map<Integer,Integer>map= new HashMap<>();
+        for(int i=0;i<nums.length;i++)
+        {
+            //没有对应的key，添加进去
+            if(!map.containsKey(nums[i]))
+                map.put(nums[i],i);
+            //已经有对应的key-value对
+            else
+            {
+                //原来保存的值得下标，小于现在的
+                int j=map.get(nums[i]);
+                if(i-j<=k)
+                    return true;
+                map.put(nums[i],i);//防止出现两个以上的相同的值，有的符合有的不符合
+                
+            }
+        }
+        return false;
+    }
+}
