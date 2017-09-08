@@ -14,12 +14,12 @@ class Solution {
             if(map.containsKey(ch))
             {
                 String value=map.get(ch);
-                if(!value.equals(strs[i]))
+                if(!value.equals(strs[i]))//防止一个key对应两个value
                     return false;
             }
             else
             {
-                if(map.containsValue(strs[i]))
+                if(map.containsValue(strs[i]))//防止一个value对应两个key
                         return false;
                 map.put(ch,strs[i]);
             }
