@@ -1,0 +1,24 @@
+/*1 java中的length属性是针对数组说的,比如说你声明了一个数组,想知道这个数组的长度则用到了length这个属性.
+2 java中的length()方法是针对字符串String说的,如果想看这个字符串的长度则用到length()这个方法.
+3.java中的size()方法是针对泛型集合说的,如果想看这个泛型有多少个元素,就调用此方法来查看!*/
+class Solution {
+    public int longestPalindrome(String s) {
+        if(s==null||s.length()==0)
+            return 0;
+        if(s.length()==1)
+            return 1;
+        HashSet<Character> set=new HashSet<Character>();
+        
+        for(int i=0;i<s.length();i++)
+        {
+            if(set.contains(s.charAt(i)))
+               set.remove(s.charAt(i));
+            else
+               set.add(s.charAt(i));//set中剩下的元素全部都是单个的，这样可以把大于1的奇数的放进去
+        }
+        if(set.size()>0)
+               return s.length()-set.size()+1;
+        else
+               return s.length()-set.size();
+    }
+}
