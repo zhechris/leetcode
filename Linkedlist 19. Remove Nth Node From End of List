@@ -1,0 +1,40 @@
+//快慢指针again，缺几个就让快的先走几个
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode start=new ListNode(0);
+        start.next=head;
+        ListNode slow=start;
+        ListNode fast=start;
+        for(int i=0;i<n+1;i++)
+            fast=fast.next;
+        
+        while(fast!=null)
+        {
+            fast=fast.next;
+            slow=slow.next;
+        }
+        slow.next=slow.next.next;
+        return start.next;
+    }
+}
+******************************************************************
+/*这个方法比较传统，先遍历然后存入数组，删去第size-n个结点。
+需要注意
+array里面存的是listnode，所以可以直接操作*/
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        List<ListNode> nodelist=new ArrayList<ListNode>();
+        ListNode start=new ListNode(0);
+        start.next=head;
+        nodelist.add(start);
+        while(head!=null)
+        {
+            nodelist.add(head);
+            head=head.next;
+        }
+        int index=nodelist.size()-n-1;
+        nodelist.get(index).next=nodelist.get(index+1).next;
+        return nodelist.get(0).next;
+        
+    }
+}
