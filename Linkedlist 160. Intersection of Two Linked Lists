@@ -1,0 +1,16 @@
+/*该解法非常巧妙，利用cycle特性
+例如 123456790234567
+     902345671234567*/
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null||headB==null)
+            return null;
+        ListNode a=headA,b=headB;
+        while (a!=b)
+        {
+            a=(a==null)?headB:a.next;
+            b=(b==null)?headA:b.next;
+        }
+        return a;
+    }
+}
