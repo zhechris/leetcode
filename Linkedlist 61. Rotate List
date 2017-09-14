@@ -1,0 +1,39 @@
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || k <= 0)
+			return head;
+		// 新建一个结点，利于操作
+		ListNode tmpHead = new ListNode(0);
+		tmpHead.next = head;
+		// 使用快慢指针，计算倒数节点数目
+		ListNode fast = tmpHead;
+		ListNode slow = tmpHead;
+		int len = 0;
+		// 计算链表长度
+		while (slow.next != null) {
+			len++;
+			slow = slow.next;
+
+		}
+		slow = tmpHead;
+		// 关键，记录k 的有效长度，输入会有k大于链表长度值
+		k = k % len;
+		// 不需要翻转
+		if (k == 0)
+			return tmpHead.next;
+		// 快指针先走k步
+		while (--k >= 0)
+			fast = fast.next;
+		// 一起走
+		while (fast.next != null) {
+			fast = fast.next;
+			slow = slow.next;
+		}
+		// 重新链接链表，注意置空
+		tmpHead.next = slow.next;
+		fast.next = head;
+		slow.next = null;
+		return tmpHead.next;
+
+    }
+}
