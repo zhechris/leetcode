@@ -1,0 +1,18 @@
+//快慢指针操作，快的一次走两个，慢的一次走一个，当快的追上慢的，说明有循环
+//这种方法只能确定是否有循环，并不能确定在哪里循环
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head==null)
+            return false;
+        ListNode slow=head;
+        ListNode fast=head;
+        while(slow.next!=null&&fast.next.next!=null)
+        {
+            slow=slow.next;
+            fast=fast.next.next;
+            if(fast==slow)
+                return true;
+        }
+        return false;
+    }
+}
