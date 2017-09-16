@@ -1,0 +1,49 @@
+/* 最开始还是需要建立一个fakehead，让fakehead的next指向head。然后，使用我刚才说过的3个指针方法来初始化3个指针，如下： 
+  ListNode ptr0 = fakehead; //prev
+  ListNode ptr1 = fakehead.next; //current
+  ListNode ptr2 = fakehead.next.next; //post
+同时还需要引入一个布尔型的判断flag，来帮助判断当前是否遇到有重复，这个flag能帮助识别是否需要删除重复。
+当没有遇到重复值（flag为false）时，3个指针同时往后移动：
+ ptr0 = ptr1;
+ ptr1 = ptr2;
+ ptr2 = ptr2.next; 
+当遇到重复值时，设置flag为true，并让ptr2一直往后找找到第一个与ptr1值不等的位置时停止，
+这时，ptr1指向的node的值是一个重复值，需要删除，所以这时就需要让ptr0的next连上当前的ptr2，
+这样就把所有重复值略过了。然后，让ptr1和ptr2往后挪动继续查找。
+ */
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head==null||head.next==null)
+            return head;
+        ListNode head1 = new ListNode(0);
+        head1.next=head;
+        
+        ListNode ptr0=head1;
+        ListNode ptr1=head1.next;
+        ListNode ptr2=head1.next.next;
+        
+        boolean flag=false;
+        
+        while(ptr2!=null)
+            if(ptr1.val==ptr2.val)
+            {
+                flag=true;
+                ptr2=ptr2.next;
+                if(ptr2==null)
+                    ptr0.next=null;
+            }
+            else
+            {
+                if(flag==true)
+                {
+                    ptr0.next=ptr2;
+                    flag=false;
+                }
+                else
+                    ptr0=ptr1;
+                ptr1=ptr2;
+                ptr2=ptr2.next;
+            }
+        return head1.next;
+    }
+}
