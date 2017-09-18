@@ -14,3 +14,10 @@ class Solution {
         return count_five;  
     }
 }
+*************************************
+//这个方法吊炸天
+class Solution {
+    public int trailingZeroes(int n) {
+       return n / 5 == 0 ? 0 : n /5 + trailingZeroes(n / 5);
+    }
+}
