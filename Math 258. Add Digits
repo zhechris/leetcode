@@ -1,0 +1,8 @@
+//这道题太简单了，可以忽略
+class Solution {
+    public int addDigits(int num) {
+        while(num>=10)
+            num=num/10+num%10;
+        return num;
+    }
+}
