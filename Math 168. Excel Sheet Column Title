@@ -1,0 +1,13 @@
+class Solution {
+    public String convertToTitle(int n) {
+        String ret = "";
+        while(true)
+        {
+            ret = (char)((n-1)%26+'A') + ret;
+            n = (n-1)/26;
+            if(n<=0)
+                break;
+        }
+        return ret;
+    }
+}
