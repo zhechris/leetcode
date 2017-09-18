@@ -1,0 +1,10 @@
+//当传统方法不好操作时运用数学的思想
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sum1=(nums.length+1)*nums.length/2;//假设数组不丢失数据，最后一位为数组长度+1
+        int sum2=0;
+        for(int i:nums)
+            sum2+=i;
+        return sum1-sum2;
+    }
+}
