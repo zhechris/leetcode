@@ -1,0 +1,9 @@
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+     if(n==1)
+         return true;
+     if(n>1&&n%2==0)//如果一个数是2的幂，则除以2肯定能整除，而且商肯定也是2的幂。
+         return isPowerOfTwo(n/2);
+    return false;
+    }
+}
