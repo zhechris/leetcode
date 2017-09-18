@@ -1,0 +1,20 @@
+//动态规划就是要找出递归，因为每次决策依赖于当前状态
+class Solution {
+    public int rob(int[] nums) {
+        if(nums.length==0)
+            return 0;
+        
+        int []b=new int[nums.length];//include last house
+        int []d=new int[nums.length];//exclude last house
+        
+        b[0]=nums[0];
+        d[0]=0;
+        
+        for(int i=1;i<nums.length;i++)
+        {
+            b[i]=d[i-1]+nums[i];//没抢前一个，抢了当前的
+            d[i]=Math.max(d[i-1],b[i-1]);//没抢当前的，前一个也不知道抢了没有
+        }
+        return Math.max(b[nums.length-1],d[nums.length-1]);
+    }
+}
