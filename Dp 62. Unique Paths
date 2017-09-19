@@ -1,0 +1,22 @@
+/*利用到达终点的唯一性，就可以写出递推公式（dp[i][j]表示到坐标（i,j）的走法数量）：
+ dp[i][j] = dp[i-1][j] + dp[i][j-1]
+ 通常来讲，我们会初始dp数组为dp[m+1][n+1]。但是这里的话，因为dp[i][j]是表示坐标点，所以这里声明dp[m][n]更容易理解。
+ */
+class Solution {
+    public int uniquePaths(int m, int n) {
+        if(m==0||n==0) return 0;
+        if(m==1||n==1) return 1;
+        
+        int [][] dp=new int[m][n];
+        
+        for(int i=0;i<n;i++)//只有一行，只有一种走法
+            dp[0][i]=1;
+        for(int i=0;i<m;i++)//只有一列，只有一种走法
+            dp[i][0]=1;
+        for(int i=1;i<m;i++)// for each body node, number of path = paths from top + paths from left
+            for(int j=1;j<n;j++)
+                dp[i][j]=dp[i-1][j]+dp[i][j-1];
+        return dp[m-1][n-1];
+            
+    }
+}
