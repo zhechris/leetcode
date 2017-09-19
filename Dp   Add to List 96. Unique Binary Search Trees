@@ -1,0 +1,17 @@
+/*当有n个节点时(1--n),任何一个数都可以当成根节点，左边j个节点，右边是n-j-1个节点
+所以就有nums[n] = nums[0]*nums[n]+nums[1]*nums[n-1]+nums[2]*nums[n-2]+...+nums[n]*nums[0];
+因此我们需要先求出nums[0]--nums[n-1]
+最后返回nums[n]即可*/
+class Solution {
+    public int numTrees(int n) {
+        if(n ==0 || n ==1) return 1;
+        int res[] =new int[n+1];//res[n]代表有n个数的时候根节点有几种情况
+        res[0]=1;
+        for(int i =1 ; i <= n ; i++){
+            for(int j = 0; j < i; j++){
+                res[i] += res[j]*res[i-j-1];
+             }
+         }
+        return res[n];
+    }
+}
