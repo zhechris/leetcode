@@ -1,0 +1,28 @@
+class Solution {
+   public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        Arrays.sort(candidates); // sort the array
+        recurse(new ArrayList<Integer>(), target, candidates, 0, result);
+        return result;
+    }
+
+    /**
+     * do it recursively
+     */
+    public void recurse(List<Integer> list, int target, int[] candidates, int index, List<List<Integer>> result) { // list is one of the answers
+        if (target == 0) {
+            result.add(list);
+            return;
+        }
+        for (int i = index; i < candidates.length; i++) {
+            int newTarget = target - candidates[i]; // subtract candidate from target
+            if (newTarget >= 0) {
+                List<Integer> copy = new ArrayList<Integer>(list); // create a copy
+                copy.add(candidates[i]);
+                recurse(copy, newTarget, candidates, i, result); // see if there is more
+            } else { // run out of target
+                break;
+            }
+        }
+    }
+}
