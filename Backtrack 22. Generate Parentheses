@@ -1,3 +1,5 @@
+/*这道题其实可以按照递归去做。每次把字符串压入到List的结束条件是左括号和右括号剩余都为0。
+且在递归过程中，保持左括号的个数大于等于右括号即可。*/
 class Solution {
     public List<String> generateParenthesis(int n){
         List<String> ls = new ArrayList<String>();
