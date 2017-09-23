@@ -1,27 +1,24 @@
 public class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> list=new ArrayList<>();
-        List<Integer> array=new ArrayList<>();
-         
-         
-        int n=nums.length;
-        backtracking(list, array, 0, n, nums);
-        return list;
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<Integer> list = new ArrayList<Integer>();
+        helper(result, list, nums);
+        return result;
     }
-     
-    public void backtracking(List<List<Integer>> list,List<Integer> array,int t,int n,int[] nums) {
-        if(t>n) return;
-        else if(t==n){
-            list.add(new ArrayList<>(array));
-        }else{
-            for(int i=0;i<n;i++){
-                if((!array.contains(nums[i])))//每次从0开始
-                {
-                    array.add(nums[i]);
-                    backtracking(list, array, t+1, n, nums);
-                    array.remove(array.size()-1);//相当于clear array,便于下一组array添加
-                }
+    private void helper(List<List<Integer>> result, List<Integer> list, int[] nums) {
+        if (list.size() == nums.length) {
+            if (!result.contains(list)) {
+                result.add(new ArrayList<Integer>(list));
+                return;
             }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (list.contains(nums[i])) {
+                continue;
+            }
+            list.add(nums[i]);
+            helper(result,list,nums);
+            list.remove(list.size() - 1);
         }
     }
 }
