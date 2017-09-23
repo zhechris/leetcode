@@ -15,7 +15,7 @@ public class Solution {
             list.add(new ArrayList<>(array));
         }else{
             for(int i=0;i<n;i++){
-                if((!array.contains(nums[i])))//nums允许重复
+                if((!array.contains(nums[i])))//每次从0开始
                 {
                     array.add(nums[i]);
                     backtracking(list, array, t+1, n, nums);
