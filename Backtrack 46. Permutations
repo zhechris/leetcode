@@ -1,0 +1,27 @@
+public class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list=new ArrayList<>();
+        List<Integer> array=new ArrayList<>();
+         
+         
+        int n=nums.length;
+        backtracking(list, array, 0, n, nums);
+        return list;
+    }
+     
+    public void backtracking(List<List<Integer>> list,List<Integer> array,int t,int n,int[] nums) {
+        if(t>n) return;
+        else if(t==n){
+            list.add(new ArrayList<>(array));
+        }else{
+            for(int i=0;i<n;i++){
+                if((!array.contains(nums[i])))//nums允许重复
+                {
+                    array.add(nums[i]);
+                    backtracking(list, array, t+1, n, nums);
+                    array.remove(array.size()-1);//相当于clear array,便于下一组array添加
+                }
+            }
+        }
+    }
+}
