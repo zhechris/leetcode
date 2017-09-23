@@ -20,6 +20,7 @@ public class Solution {
                 if (visited[i] == false){ 
                     if (i > 0 && num[i] == num[i-1] && visited[i-1] == false){
                         continue;//only insert duplicate element when the previous duplicate element has been inserted
+                        //运行到（112,121）以后把下一个1的情况跳过去，直接加上了（211）
                     }  
                     current.add(num[i]);
                     visited[i] = true;
