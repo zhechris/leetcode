@@ -1,0 +1,30 @@
+/*n 个数字有 n！种全排列，每种数字开头的全排列有 (n - 1)!（n！/ n）种。 
+所以用 k / (n - 1)! 就可以得到第 k 个全排列是以第几个数字开头的。 
+用 k % (n - 1)! 就可以得到第 k 个全排列是某个数字开头的全排列中的第几个。 
+这又变成了最初的问题设置。 
+对于以某个数字开头的全排列（第一个数字固定后的全排列，不再理会第一个数字），它有 (n - 1)! 种全排列，那么这些全排列中，每个数字开头的全排列有 (n - 2)! （(n-1)! / (n-1)）。依次类推。
+比如当前长度是n，我们知道每个相同的起始元素对应(n-1)!个permutation，也就是(n-1)!个permutation后会换一个起始元素。因此，只要当前的k进行(n-1)!取余，得到的数字就是当前剩余数组的index，如此就可以得到对应的元素。如此递推直到数组中没有元素结束。*/
+public class Solution {
+    public String getPermutation(int n, int k) {
+        ArrayList<Integer> list = new ArrayList();
+        StringBuilder sb = new StringBuilder();
+        int factorial = 1;
+        for(int i = 2; i <= n - 1; i ++)
+            factorial *= i;
+        for(int i = 1; i <= n; i ++)
+            list.add(i);
+        k --;//下标从0开始，这样下标就是从0到n-1，不用考虑n时去取余，更好地跟数组下标匹配
+        int round = n - 1;
+        while(round >= 0) {
+            int num = list.get(k / factorial);
+            sb.append(num);
+            list.remove(k / factorial);
+            if(round > 0) {
+                k = k % factorial;
+                factorial /= round;
+            }
+            round --;
+        }
+        return sb.toString();
+    }
+}
