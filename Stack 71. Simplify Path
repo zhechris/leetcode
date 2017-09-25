@@ -1,0 +1,48 @@
+/*
+1.1）对于==，如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；
+　　　　如果作用于引用类型的变量，则比较的是所指向的对象的地址
+　　2）对于equals方法，注意：equals方法不能作用于基本数据类型的变量
+　　　　如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；
+　　　　诸如String、Date等类对equals方法进行了重写的话，比较的是所指向的对象的内容。
+2.split函数是可以split出空字符的
+3.String在每次对字符串修改时候均会生成一个新的String，效率较低，一般会采用StringBuilder或者StringBuffer来进行字符串修改的操作
+4.针对数组提供了length属性来获取数组的长度
+针对字符串提供了length()方法来获取字符串的长度
+针对泛型集合类提供了size()方法来获取元素的个数
+*/
+class Solution {
+    public String simplifyPath(String path) {
+        if(path==null||path.length()==0)
+            return path;
+        
+        Stack<String> stack=new Stack<String>();
+        String[] list=path.split("/");
+        
+        for(int i=0;i<list.length;i++)
+        {
+            if(list[i].equals(".")||list[i].equals(""))
+                continue;
+            else if(!list[i].equals(".."))
+                stack.push(list[i]);
+            else
+            {
+                if(!stack.isEmpty())
+                    stack.pop();
+            }
+        }
+        
+        StringBuilder res=new StringBuilder();
+        Stack <String> temp=new Stack<String>();
+        
+        while(!stack.isEmpty())  
+            temp.push(stack.pop());
+        
+        while(!temp.isEmpty())
+            res.append("/"+temp.pop());
+         
+        if(res.length()==0)
+            res.append("/");
+         
+        return res.toString();
+    }
+}
