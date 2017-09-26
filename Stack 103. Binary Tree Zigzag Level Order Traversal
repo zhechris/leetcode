@@ -16,7 +16,7 @@ class Solution {
         stack.push(root);
         while (!stack.isEmpty()) 
         {
-            Stack<TreeNode> curStack = new Stack();
+            Stack<TreeNode> curStack = new Stack();//出循环以后局部变量不再存在，所以不需要清空
             List<Integer> curList = new ArrayList();
             while (!stack.isEmpty()) 
             {
