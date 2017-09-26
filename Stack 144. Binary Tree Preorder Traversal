@@ -1,0 +1,66 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ *************************************************
+ iterative
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack=new Stack<>();
+        List<Integer> list=new ArrayList<>();
+        
+        TreeNode cur=root;
+        while(!stack.isEmpty()||cur!=null)//there is no 0 cause treenode can't convert to integer
+        {
+            if(cur!=null)
+            {
+                list.add(cur.val);
+                stack.push(cur);
+                cur=cur.left;
+            }
+            else
+            {
+                cur=stack.pop();
+                cur=cur.right;
+            }
+        }
+        return list;
+    }
+}
+*********************************************************
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> list=new ArrayList<>();
+        
+        if(root!=null)
+        {
+            list.add(root.val);
+            preorder(list,root.left);
+            preorder(list,root.right);
+        }
+        return list;
+    }
+    private void preorder(List<Integer>list,TreeNode cur)
+    {
+        if (cur != null) 
+        {  
+        list.add(cur.val);
+        preorder(list,cur.left);
+        preorder(list,cur.right);
+        }
+    }
+}
