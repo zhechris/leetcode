@@ -7,6 +7,8 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ **********************************************
+ iterative
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> postorder= new ArrayList<Integer>();  
@@ -44,3 +46,4 @@ class Solution {
         return postorder;  
     }
 }
+
