@@ -1,0 +1,46 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> postorder= new ArrayList<Integer>();  
+        Stack<TreeNode> stack = new Stack<TreeNode>();  
+          
+        TreeNode p = root;  
+        TreeNode q;  
+          
+        do {  
+            while(p != null) 
+            {  
+                stack.push(p);  
+                p = p.left;  
+            }  
+              
+            q = null;  
+            while(!stack.isEmpty()) 
+            {  
+                p = stack.pop();  
+                if (p.right == q) 
+                {  
+                    postorder.add(p.val);  
+                    q = p;  
+                } 
+                else 
+                {  
+                    stack.push(p);  
+                    p = p.right;  
+                    break;  //跳出这个while循环,从第一个while开始执行
+                }  
+            }  
+              
+        } while(!stack.isEmpty());  
+          
+        return postorder;  
+    }
+}
