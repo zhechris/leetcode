@@ -33,7 +33,7 @@ class Solution {
                     if (cur.left != null) curStack.push(cur.left);
                 }
             }
-            stack = curStack;
+            stack = curStack;//换层
             res.add(curList);
             LR = !LR;
         }
