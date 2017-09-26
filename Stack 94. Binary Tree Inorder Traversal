@@ -1,3 +1,5 @@
+ ************************************************
+ iteratively
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -7,8 +9,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
- ************************************************
- iterative
+
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         Stack<TreeNode> stack=new Stack<>();
