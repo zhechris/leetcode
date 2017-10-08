@@ -1,0 +1,38 @@
+//这种方法很厉害，只需要一个队列就可以实现
+class MyStack {
+    private Queue<Integer> q = new LinkedList<Integer>();
+    // Push element x onto stack.
+    public void push(int x) {
+        q.offer(x);
+        int size = q.size();
+        while (size > 1) {
+            q.offer(q.remove());
+            size--;
+        }
+    }
+
+    // Removes the element on top of the stack.
+    public int pop() {
+        return q.poll();
+    }
+
+    // Get the top element.
+    public int top() {
+        return q.peek();
+    }
+
+    // Return whether the stack is empty.
+    public boolean empty() {
+        return q.isEmpty();
+    }
+}
+
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
