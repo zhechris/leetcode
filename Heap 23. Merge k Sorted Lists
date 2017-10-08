@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+/*当我们归并k个列表时，最简单的方法就是，对于每次插入，我们遍历这K个列表的最前面的元素，
+找出K个中最小的再加入到结果中。不过如果我们用一个优先队列（堆），将这K个元素加入再找堆顶元素，
+每次插入只要logK的复杂度。当拿出堆顶元素后，我们再将它所在链表的下一个元素拿出来，放到堆中。这样直到所有链表都被拿完，归并也就完成了。*/
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length == 0) return null;
+        ListNode dummy = new ListNode(0);
+        PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(11, new Comparator<ListNode>(){
+            public int compare(ListNode n1, ListNode n2){
+                return n1.val - n2.val;//大于0，把前一个和后一个互换，n1>n2,n1,n2
+              //return n2.val-n1.val;大于0，把前一个和后一个互换，n2>n1,n2.n1,就反了
+            }
+        });
+        // 初始化大小为k的堆
+        for(int i = 0; i < lists.length; i++){
+            if(lists[i] != null) q.offer(lists[i]);
+        }
+        ListNode curr = dummy;
+        while(!q.isEmpty()){
+            // 拿出堆顶元素
+            curr.next = q.poll();
+            curr = curr.next;
+            // 将堆顶元素的下一个加入堆中
+            if(curr.next != null){
+                q.offer(curr.next);    
+            }
+        }
+        return dummy.next;
+    }
+}
