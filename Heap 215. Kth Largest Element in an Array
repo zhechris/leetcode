@@ -1,3 +1,5 @@
+//这道题用了两种方法，最简单的第一种，理想的用heap维护，学会comparator方法
+*****************************************************
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         Arrays.sort(nums);
@@ -5,3 +7,20 @@ class Solution {
     }
 }
 ******************************************************
+class Solution {
+        public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> q = new PriorityQueue<Integer>(new Comparator<Integer>(){
+                public int compare(Integer n1, Integer n2){
+                    return n1 - n2;//大于0，把前一个和后一个互换，n1>n2,n1,n2
+                  //return n2.val-n1.val;大于0，把前一个和后一个互换，n2>n1,n2.n1,就反了
+                }
+            });
+        for(int i: nums){
+            q.offer(i);
+            if(q.size()>k){
+                q.poll();
+            }
+        }
+        return q.peek();
+    }
+}
