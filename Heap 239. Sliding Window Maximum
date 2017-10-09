@@ -1,0 +1,21 @@
+/*维护一个大小为K的最大堆，依此维护一个大小为K的窗口，每次读入一个新数，都把堆中窗口最左边的数扔掉，再把新数加入堆中，这样堆顶就是这个窗口内最大的值。*/
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums==null||nums.length==0)
+            return new int [0];
+        PriorityQueue<Integer> q= new PriorityQueue<Integer>(Collections.reverseOrder());
+        int []res=new int [nums.length-k+1];
+        for(int i=0;i<nums.length;i++)
+        {
+             // 把窗口最左边的数去掉
+            if(i>=k)
+                q.remove(nums[i-k]);
+            // 把新的数加入窗口的堆中
+            q.offer(nums[i]);
+            // 堆顶就是窗口的最大值
+            if(i+1>=k)
+                res[i-k+1]=q.peek();
+        }
+        return res;
+    }
+}
