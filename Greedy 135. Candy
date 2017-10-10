@@ -1,0 +1,29 @@
+class Solution {
+    public int candy(int[] ratings) {
+/*1、与前面的邻居比较，前向遍历权重数组ratings，如果ratings[i]>ratings[i-1]，则A[i]=A[i-1]+1；
+2、与后面的邻居比较，后向遍历权重数组ratings，如果ratings[i]>ratings[i+1]且A[i]<A[i+1]+1，则更新A，A[i]=A[i+1]+1；
+leftnums数组存从左边遍历，当前小朋友对比其左边小朋友，他能拿到糖的数量；
+rightnums数组存从右边遍历，当前小朋友对比其右边小朋友，他能拿到的糖的数量。
+最后针对这两个数组，每个小朋友能拿到的糖的数量就是这两个数最大的那个数，求总加和就好了。
+ */
+        int leftnum[]=new int [ratings.length];
+        int rightnum[]=new int [ratings.length];
+        
+        Arrays.fill(leftnum,1);
+        Arrays.fill(rightnum,1);
+        for(int i=1;i<ratings.length;i++)
+        {
+            if(ratings[i]>ratings[i-1])
+                leftnum[i]=leftnum[i-1]+1;
+        }
+        for (int i = ratings.length - 2; i >= 0; i--) 
+        {  
+            if (ratings[i] > ratings[i + 1])  
+                rightnum[i] = rightnum[i + 1] + 1; 
+        }
+        int sum = 0;  
+        for (int i = 0; i < ratings.length; i++)  
+            sum += Math.max(leftnum[i], rightnum[i]);  
+        return sum;  
+    }
+}
