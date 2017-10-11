@@ -19,7 +19,7 @@ class Solution {
         {
             if(newInterval.start>interval.end)
                 res.add(interval);
-            else if(newInterval.end<interval.start)
+            else if(newInterval.end<interval.start)//条件不能少，否则会出现直接判断new.start<cur.end的情况
             {
                 res.add(newInterval);
                 newInterval=interval;//in case original list has overlapping .
