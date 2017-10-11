@@ -1,0 +1,38 @@
+/*１．假设碰到*号时s串的位置是l, p串的位置是r，则将r+1作为*号后续进行比较的起点。
+２．从l开始与r+1位置的元素进行比较，如果相同，再按照常规匹配的方式往后面继续比。否则l跳到前面和r+1开始比较那个位置的后面一个。同时p这边的元素也要归位到r+1
+　　所以，到了这一步，我们就知道。当遇到*号的时候，先记录一下l所在的位置和r+1所在的位置。每次匹配比较不对了就回退。假设记录l开始比较位置的元素为match。在每次匹配失败后match就要加１，表示下一个开始比较的起点。
+３．既然前面匹配的情况讨论了。对于不匹配的情况呢？假设我们碰到一些不匹配的了。如果前面根本就没有*号，这就是正常的字符串比较不匹配的情况，我们直接就返回匹配不成功了。
+４．还有一个问题，这算是比较隐蔽一点的情况。因为我们这边是一碰到*号就一直不停的去比较，如果p串中间有多个*号呢？我们可能已经比较到前面s串的结尾了，但是p串后面可能还有一部分字符。这个时候我们也需要进行判断。如果剩下的是*号，则相当于*号匹配了０个元素，否则表示匹配错误。*/
+public class Solution {  
+    public boolean isMatch(String str, String pattern) {  
+        int s = 0, p = 0, match = 0, starIdx = -1;              
+        while (s < str.length()){  
+            // advancing both pointers  
+            if (p < pattern.length()  && (pattern.charAt(p) == '?' || str.charAt(s) == pattern.charAt(p))){  
+                s++;  
+                p++;  
+            }  
+            // * found, only advancing pattern pointer  
+            else if (p < pattern.length() && pattern.charAt(p) == '*'){  
+                starIdx = p+1;  //record p
+                match = s;  //record s 
+                p++;  
+            }  
+           // last pattern pointer was *, advancing string pointer  
+            else if (starIdx != -1){  
+                p = starIdx;  
+                match++;  
+                s = match;  
+            }  
+           //current pattern pointer is not star, last patter pointer was not *  
+          //characters do not match  
+            else return false;  
+        }  
+  
+        //check for remaining characters in pattern  
+        while (p < pattern.length() && pattern.charAt(p) == '*')  
+            p++;  
+  
+        return p == pattern.length();//如果剩下的是*号，则相当于*号匹配了０个元素，否则表示匹配错误。  
+    }  
+}  
