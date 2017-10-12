@@ -4,7 +4,7 @@ public class Solution {
         int result=0;
         for (int i=0; i<32; i++){
     		// 取出n的最低位
-    		int least = n & 1;
+    		int least = n & 1;//0x01 十六进制表示
     		// n右移一位
     		n = n >> 1;
     		// 下面两个步骤需要注意：一定要先左移，再赋值。
