@@ -1,0 +1,24 @@
+/*最简单的做法，我们可以把位移一位后每个子串都存入哈希表中，
+如果哈希表中已经有这个子串，而且是第一次重复，则加入结果中。
+如果已经遇到多次，则不加入结果中。如果哈希表没有这个子串，则把这个子串加入哈希表中。*/
+class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        List<String> res=new LinkedList<String>();
+        HashMap<String,Integer> map=new HashMap<String,Integer>();
+        
+        for(int index=10;index<=s.length();index++)
+        {
+            String substr=s.substring(index-10,index);
+            if(map.containsKey(substr))
+            {
+                if(map.get(substr)==1)
+                    res.add(substr);
+                map.put(substr,2);//覆盖之前的，因为一个key对应一个value
+                
+            }
+            else
+                map.put(substr,1);
+        }
+        return res;
+    }
+}
