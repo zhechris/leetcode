@@ -32,7 +32,7 @@ class Solution {
                 for(TreeNode tempLeft : left)
                 {
                     for(TreeNode tempRight : right)
-                        
+                    {
                         TreeNode root = new TreeNode(i);
                         root.left = tempLeft;
                         root.right = tempRight;
