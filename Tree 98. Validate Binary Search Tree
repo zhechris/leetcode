@@ -1,0 +1,41 @@
+*************************************
+//中序遍历的方法，arraylist应该满足一次递增
+class Solution {
+     List<Integer> list = new ArrayList<Integer>();  
+      
+    public boolean isValidBST(TreeNode root) {  
+        if (root == null) return true;  
+        if (root.left == null && root.right == null) return true;  
+        inOrderTraversal(root);  
+        for (int i = 1; i < list.size(); i++) {  
+            if (list.get(i) <= list.get(i - 1)) return false;  
+        }  
+        return true;  
+     }  
+      
+    public void inOrderTraversal(TreeNode root) {  
+        if (root == null) return;  
+        inOrderTraversal(root.left);  
+        list.add(root.val);  
+        inOrderTraversal(root.right);  
+    }  
+}
+***************************************
+/*。假设我们已经知道了当前节点的区间，那么左子节点的上限即为父节点的值，而下限则应该为父节点的下限。
+同理，右子节点的下限是父节点的值，而上限也就是父节点的上线。
+需要注意的是其中初始的root节点的 ceiling 和 floor 值设置问题。某一次提交后发现test case [2147483647] 不通过，2147483647 = 2^31 -1，
+也就是说这个case是专门用来考察初始ceiling和floor的设置的。由于 BST 被当做一种 Symbol Table（含有 key-value 结构），key 值默认是不相等的，
+所以通常来说 BST 中左根右的大小关系是严格的小于而非小于等于。如果初始 root 节点的 ceiling 值设为2^31-1 = 2147483647 则会误判为非法。
+解决办法为：将 Integer.MAX_VALUE 和 Integer.MIN_VALUE cast 为 long 类型后，分别 +1 和 -1，以此作为 root 节点的初始 ceiling 和 floor 值。
+如果不转换为 long，则 +1 和 -1 后会溢出，所得的值无法作为 ceiling 和 floor。
+*/
+ public boolean isValidBST2(TreeNode root){
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    
+    public boolean isValid(TreeNode treeNode, long lowerBound, long upperBound){
+        if(treeNode==null) return true;
+        if(treeNode.val>=upperBound || treeNode.val<=lowerBound) return false;
+        return isValid(treeNode.left, lowerBound,treeNode.val) && isValid(treeNode.right, treeNode.val, upperBound);
+    }
+    
