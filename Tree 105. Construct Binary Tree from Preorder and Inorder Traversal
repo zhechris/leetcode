@@ -1,0 +1,51 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+/*
+      1       
+    / \   
+   2   3   
+  / \ / \   
+ 4  5 6  7
+ 
+index: 0 1 2 3 4 5 6
+     先序遍历为: 1 2 4 5 3 6 7 
+     中序遍历为: 4 2 5 1 6 3 7
+1. 先序遍历的从左数第一个为整棵树的根节点。2. 中序遍历中根节点是左子树右子树的分割点。
+再看这个树的左子树：              右子树：
+     先序遍历为: 2 4 5           先序遍历为: 3 6 7 
+     中序遍历为: 4 2 5           中序遍历为: 6 3 7
+     通过先序遍历找到第一个点作为根节点，在中序遍历中找到根节点并记录index。
+因为中序遍历中根节点左边为左子树，所以可以记录左子树的长度并在先序遍历中依据这个长度找到左子树的区间，用同样方法可以找到右子树的区间。
+     */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return build(preorder,0,preorder.length-1,inorder,0,inorder.length-1);
+    }
+    private TreeNode build(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd)
+    {
+        if(preStart>preEnd||inStart>inEnd)
+            return null;
+        int rootVal = pre[preStart];
+        int rootIndex = 0;
+        for(int i=inStart;i<=inEnd;i++)
+        {
+            if(in[i] == rootVal)
+            {
+                 rootIndex = i;
+                 break;
+             }
+        }
+        int len = rootIndex - inStart;
+        TreeNode root = new TreeNode(rootVal);
+        root.left = build(pre,preStart+1,preStart+1+len-1,in,inStart,rootIndex-1);
+        root.right = build(pre,preStart+len+1,preEnd,in,rootIndex+1,inEnd);
+        return root;
+    }
+}
