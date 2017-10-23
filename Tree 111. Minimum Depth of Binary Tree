@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ /*要注意如果有个节点只有一边孩子时，不能返回0，要返回另外一半边的depth。*/
 class Solution {
     public int minDepth(TreeNode root) {
         if(root == null)
