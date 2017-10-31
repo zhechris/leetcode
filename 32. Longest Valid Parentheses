@@ -1,0 +1,42 @@
+/*那这里也是，我们对数组进行遍历时，维护一个栈，栈顶中的元素为最近一次的（在字符数组中的索引，当遇到一个），
+获取该索引以及当前index，并将数组中两个元素置1，当遇到一个（时，就将该索引压栈。如此一来，当一次遍历结束之后，
+chars数组就变成了一个由1和（组成的序列。其中（就像是分隔符，然后以此为分割，汇总每个部分的总和。 
+时间复杂度为O(N)，空间复杂度为O(N)*/
+class Solution {
+    public int longestValidParentheses(String s) {
+        Stack<Integer> stack=new Stack<>();
+        char[] chars=s.toCharArray();
+        
+        int count=0,max=0;
+        
+        for(int i=0;i<chars.length;i++)
+        {
+            if(chars[i]=='(')//handle '('
+                stack.push(i);
+            else//handle ')'
+            {
+                if(!stack.isEmpty())
+                {
+                    int index=stack.pop();
+                    chars[index]=1;//'(' index
+                    chars[i]=1;//')' index
+                }
+            }
+        }
+        //filter
+        for(int i=0;i<chars.length;i++)
+        {
+            if(chars[i]==1)
+                count++;
+            else
+            {
+                if(count>max)
+                    max = count;
+                count = 0;
+            }    
+        }
+        if(count>max)//handle the 1 after last ')'
+            max = count;
+        return max;
+    }
+}
