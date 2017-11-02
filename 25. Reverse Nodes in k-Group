@@ -1,0 +1,77 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    //http://www.cnblogs.com/lichen782/p/leetcode_Reverse_Nodes_in_kGroup.html
+    /**
+     * Reverse a link list between pre and next exclusively
+     * an example:
+     * a linked list:
+     * 0->1->2->3->4->5->6
+     * |           |   
+     * pre        next
+     * after call pre = reverse(pre, next)
+     * 
+     * 0->3->2->1->4->5->6
+     *          |  |
+     *          pre next
+     * @param pre 
+     * @param next
+     * @return the reversed list's last node, which is the precedence of parameter next
+     */
+    //思路是依次将从第二个结点到最后一个结点的后继设为头结点，然后将该节点设为头结点（需记住将原头结点的后继设为空）
+    /*public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode cur = head.next;
+        ListNode pre = head;
+        while (cur != null){
+            pre.next = cur.next;
+            cur.next = head;
+            head = cur;
+            cur = pre.next;
+        }
+
+        return head;
+    }
+}*/
+    private static ListNode reverse(ListNode pre, ListNode next){
+        ListNode last = pre.next;//where first will be doomed "last"
+        ListNode cur = last.next;
+        while(cur != next){
+            last.next = cur.next;
+            cur.next = pre.next;
+            pre.next = cur;
+            cur = last.next;
+        }
+        return last;
+    }
+    
+    public static ListNode reverseKGroup(ListNode head, int k) {
+            if(head == null || k == 1)
+                return head;
+                
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+            int count = 0;
+            ListNode pre = dummy;
+            ListNode cur = head;
+            while(cur != null){
+                count ++;
+                ListNode next = cur.next;
+                if(count == k){
+                    pre = reverse(pre, next);
+                    count = 0;   
+                }
+                cur = next;
+            }
+         return dummy.next;
+        }
+}
