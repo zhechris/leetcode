@@ -1,0 +1,40 @@
+/*题目要求在给定一个字符串s和一个字符串数组words（有m个字符串，长度均为n）的条件下，找出s中所有“由words中全部字符串按任意顺序串联而成”的子串。
+　需要用到两个哈希表，第一个存储words数组，key为每一个word，value为出现的次数（考虑到数组中可能会有相同的字符串）；
+ 第二个哈希表用于存储当前遍历到的子串，value为已出现次数。从s的第一个字符开始遍历，按顺序找到长度为n的子串part，
+ 判断part是否在第一个哈希表中，以及当前已出现次数是否超过words数组中的数量，不满足条件的跳出循环并从s的下一个字符继续寻找。*/
+public class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> res = new ArrayList<>();
+        if (s == null || words == null || words.length == 0) {
+            return res;
+        }
+        
+        HashMap<String, Integer> toFind = new HashMap<>();
+        for (String word : words) {
+            Integer k = toFind.containsKey(word) ? toFind.get(word) + 1 : 1;
+            toFind.put(word, k);
+        }
+        
+        int m = words.length, n = words[0].length();
+        HashMap<String, Integer> found = new HashMap<>();
+        for (int i = 0; i <= s.length() - m * n; i++) {
+            found.clear();
+            int j = i;
+            for (; j < i + m * n; j += n) {
+                String part = s.substring(j, j + n);
+                Integer a = toFind.get(part);
+                Integer b = found.get(part);
+                if (a == null || (b != null && a <= b)) {
+                    break;
+                }
+                found.put(part, b == null ? 1 : ++b);
+            }
+            if (toFind.equals(found)) //两个map一样
+            {
+                res.add(i);
+            }
+        }
+        
+        return res;
+    }
+}
