@@ -1,0 +1,35 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        /*if (strs == null || strs.length == 0)
+			return new ArrayList<>();
+		Map<String, List<String>> map = new HashMap<>();
+		for (String str : strs) {
+
+			char[] cs = str.toCharArray();
+			// 将char数组按照字典顺序排序
+			Arrays.sort(cs);
+			String sortStr = String.valueOf(cs);
+			// 排序后的String作为key，
+			if (!map.containsKey(sortStr))
+				map.put(sortStr, new ArrayList<>());
+			map.get(sortStr).add(str);
+		}
+		// 注意ArrayList的构造方法的应用
+		return new ArrayList<>(map.values());*/
+        List<List<String>> result = new ArrayList<>();  
+        Map<String, List<String>> map = new HashMap<>();  
+        for(String s : strs) {  
+            char[] chars = s.toCharArray();  
+            Arrays.sort(chars);  
+            String key = String.valueOf(chars);  
+            if(!map.containsKey(key)) map.put(key, new ArrayList<>());  
+            map.get(key).add(s);  
+        }  
+        for(String key : map.keySet()) {  
+            List<String> list = map.get(key);  
+           // Collections.sort(list);  
+            result.add(list);  
+        }  
+        return result;  
+    }
+}
