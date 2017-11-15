@@ -1,0 +1,24 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix==null||matrix.length==0||matrix[0].length==0)
+            return false;
+        int i=0,j=0;
+        while(i<matrix.length)
+        {
+            if(target>matrix[i][matrix[i].length-1])
+                i++;
+            else
+            {
+                while(j<matrix[i].length)
+                {
+                    if(target==matrix[i][j])
+                        return true;
+                    else
+                        j++;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+}
