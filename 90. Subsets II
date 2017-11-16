@@ -1,0 +1,30 @@
+class Solution {
+    public static void dfs(int[] nums, int start, int len, List<Integer> item,List<List<Integer>> res){
+        if(item.size()==len){
+            if(!res.contains(item))
+                res.add(new ArrayList<Integer>(item));
+            return;
+        }
+        for(int i=start; i<nums.length;i++){
+            item.add(nums[i]);
+            dfs(nums, i+1, len, item, res);
+            item.remove(item.size()-1);
+        }
+
+    }
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>> ();
+        List<Integer> item = new ArrayList<Integer>();
+        if(nums.length==0||nums==null)
+            return res;
+        
+        Arrays.sort(nums);
+        for(int len = 1; len<= nums.length; len++)
+            dfs(nums,0,len,item,res);
+            
+        res.add(new ArrayList<Integer>());// add null set
+        
+        return res;
+    }
+    
+}
