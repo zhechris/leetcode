@@ -1,3 +1,4 @@
+/*下次再遇见这种题，要想到DFS*/
 class Solution {
     public static void dfs(int[] nums, int start, int len, List<Integer> item,List<List<Integer>> res){
         if(item.size()==len){
@@ -10,21 +11,16 @@ class Solution {
             dfs(nums, i+1, len, item, res);
             item.remove(item.size()-1);
         }
-
     }
     public static List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> res = new ArrayList<List<Integer>> ();
         List<Integer> item = new ArrayList<Integer>();
         if(nums.length==0||nums==null)
             return res;
-        
-        Arrays.sort(nums);
+        Arrays.sort(nums);//按顺序排好，免得有重复的添加进去
         for(int len = 1; len<= nums.length; len++)
             dfs(nums,0,len,item,res);
-            
         res.add(new ArrayList<Integer>());// add null set
-        
         return res;
     }
-    
 }
