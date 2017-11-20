@@ -1,0 +1,49 @@
+/*这道题是套用BFS同时也利用BFS能寻找最短路径的特性来解决问题。
+
+ 把每个单词作为一个node进行BFS。当取得当前字符串时，对他的每一位字符进行从a~z的替换，如果在字典里面，就入队，并将下层count++，并且为了避免环路，需把在字典里检测到的单词从字典里删除。这样对于当前字符串的每一位字符安装a~z替换后，在queue中的单词就作为下一层需要遍历的单词了。
+
+ 正因为BFS能够把一层所有可能性都遍历了，所以就保证了一旦找到一个单词equals（end），那么return的路径肯定是最短的。*/
+class Solution {
+    public int ladderLength(String start, String end, List<String> wordAsList) {
+        if(start==null || end==null || start.length()==0 || end.length()==0 || start.length()!=end.length())  
+        return 0; 
+        Set<String> dict = new HashSet<String>(wordAsList);//这里需要注意list和set区别，list将会一一对比，所以会超时，set先对比hashcode相同的，然后再对比value，不会超时
+        if (!dict.contains(end)) //if end not in wordlist, return 0
+            return 0;
+        LinkedList<String> wordQueue = new LinkedList<String>();
+        int level = 1; //the start string already count for 1
+        int curnum = 1;//the candidate num on current level
+        int nextnum = 0;//counter for next level
+        
+        wordQueue.add(start);
+        
+        while(!wordQueue.isEmpty()){
+            String word = wordQueue.poll();
+            curnum--;
+            
+            for(int i = 0; i < word.length(); i++){
+                char[] wordunit = word.toCharArray();
+                for(char j = 'a'; j <= 'z'; j++){
+                    wordunit[i] = j;
+                    String temp = new String(wordunit);  
+                    
+                    if(temp.equals(end))
+                        return level+1;
+                    if(dict.contains(temp)){
+                        wordQueue.add(temp);
+                        nextnum++;
+                        dict.remove(temp);
+                    }
+                }
+            }
+            
+            if(curnum == 0){
+                curnum = nextnum;
+                nextnum = 0;
+                level++;
+            }
+        }
+        
+        return 0;
+    }
+}
