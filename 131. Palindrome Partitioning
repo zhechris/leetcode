@@ -1,0 +1,36 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+            List<List<String>> res = new ArrayList<>();
+            if(s==null || s.length() ==0 ) 
+                return res;
+            //dfs分割出每一个回文
+            DFS(res,new ArrayList<String>(),s);
+            return res;
+        }
+    
+    
+        private void DFS(List<List<String>> res ,List<String> arrayList,String s){
+            if(s.length() == 0)
+            {
+                res.add(new ArrayList<>(arrayList));
+                return;
+            }
+            for(int i = 0;i<s.length();i++){
+                String str = s.substring(0,i+1);
+                if(isPalindrome(str)){
+                    arrayList.add(str);
+                    DFS(res,arrayList,s.substring(str.length()));
+                    arrayList.remove(arrayList.size()-1);
+                }
+            }
+
+        }
+
+
+        private boolean isPalindrome(String s ){        //判断s是否是回文
+            for(int i = 0;i<s.length()/2;i++){
+                if(s.charAt(i) != s.charAt(s.length()-1-i)) return false;
+            }
+            return true;
+        }
+}
