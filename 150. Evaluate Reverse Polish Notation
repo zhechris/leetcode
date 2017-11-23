@@ -1,0 +1,30 @@
+class Solution {
+    public int evalRPN(String[] tokens) {//tokens是数组 不是字符串
+        if(tokens==null||tokens.length==0)
+            return 0;
+        LinkedList<Integer> stack=new LinkedList<>();//linkedlist是先进后出 和栈实现相同！
+        
+        for(String token : tokens){
+            if(token.equals("+")){
+                int operand1 = stack.pop();
+                int operand2 = stack.pop();
+                stack.push(operand2 + operand1);
+            }else if(token.equals("-")){
+                int operand1 = stack.pop();
+                int operand2 = stack.pop();
+                stack.push(operand2 - operand1);
+            }else if(token.equals("*")){
+                int operand1 = stack.pop();
+                int operand2 = stack.pop();
+                stack.push(operand2 * operand1);
+            }else if(token.equals("/")){
+                int operand1 = stack.pop();
+                int operand2 = stack.pop();
+                stack.push(operand2 / operand1);
+            }else{
+                stack.push(Integer.valueOf(token));
+            }
+        }
+        return stack.pop();
+    }
+}
