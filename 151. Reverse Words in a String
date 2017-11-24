@@ -1,0 +1,10 @@
+public class Solution {
+    public String reverseWords(String s) {
+        String[] array = s.trim().split("\\s+");//trim 去掉头尾的空格，\s+多个空格
+        String result = "";
+        for(int i = array.length-1 ; i>0 ; i--){
+            result += array[i] + " ";
+        }
+        return result + array[0];
+    }
+}
