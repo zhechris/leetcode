@@ -1,0 +1,58 @@
+/*
+1、如何循环求数？ 
+2、如何判断重复？ 
+3、如何结束循环？ 
+4、会不会溢出？
+
+对于第一个问题：如果直接除数除以被除数，然后去逐位来找，那样的话是非常难以实现的（即使可以实现，那找循环体简直变成了不可能事件）。那换个思路，我们每次都作除，然后取整数部分，然后余数*10，继续下去。这样就简单多了，因为取整是非常简单的（强制类型转换即可）。 
+第二个问题：如何判断重复，对于这种思路而言，当除数在以前的历史中出现过，就可以判断剩下的数据也会不断重复。因此，我们可以存一个hashmap，key就是出现的除数，然后value就是结果数组的index值。只要包含该key时，就可以停止了。 
+第三个问题：已经回答了，只要包含有key或者除数为0时就可以停止了。 
+第四个问题：溢出怎么办？对待溢出最简单的解决方案是将其转换为更大的类型。*/
+class Solution {
+    public String fractionToDecimal(int numerator, int denominator) {
+        HashMap<Long,Integer> maps = new HashMap<>();//store divid number
+        List<Long> number = new ArrayList<>();
+        int index = 0;
+        int beginIndex = -1;
+
+        StringBuilder builder = new StringBuilder();
+        if(denominator==0)
+            return "";
+        long num = numerator;
+        long denum = denominator;
+        if((num<0 && denum>0) || (num>0 && denum<0))
+            builder.append('-');
+
+        num = Math.abs(num);
+        denum = Math.abs(denum);
+
+        long val = num/denum;
+        builder.append(String.valueOf(val));
+        num = (num%denum)*10;
+
+        while(num!=0){
+            if(maps.containsKey(num)){//开始重复
+                beginIndex = maps.get(num);
+                break;
+            }else{
+
+                maps.put(num, index++);
+                val = num/denum;
+                num = (num%denum)*10;
+                number.add(val);
+            }
+        }
+        for(int i = 0;i<index;i++){
+            if(i==0)
+                builder.append('.');
+            if(i==beginIndex){
+                builder.append('(');
+            }
+            builder.append(number.get(i));
+        }
+        if(beginIndex!=-1)
+            builder.append(')');
+
+        return builder.toString();
+    }
+}
