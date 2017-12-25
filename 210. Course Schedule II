@@ -1,0 +1,38 @@
+//相比第一题仅仅增加了记录的过程
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int preCount[] = new int[numCourses];
+        Queue<Integer> notPre = new LinkedList<Integer>();
+        int res[] = new int[numCourses];
+        int num = -1;// 可以拓扑排序的节点个数
+        // 统计每个结点作为前驱的次数
+        for (int i = 0; i < prerequisites.length; i++) {
+            preCount[prerequisites[i][0]]++;
+        }
+
+        // 记录出度为0的结点
+
+        for (int i = 0; i < preCount.length; i++) {
+            if (preCount[i] == 0) {
+                notPre.offer(i);
+                num++;
+                res[num] = i;
+            }
+        }
+
+        while (!notPre.isEmpty()) {// BFS
+            int node = notPre.poll();
+            for (int i = 0; i < prerequisites.length; i++) {
+                if (prerequisites[i][1] == node) {
+                    preCount[prerequisites[i][0]]--;// 删除和node有关的边
+                    if (preCount[prerequisites[i][0]] == 0) {// 如果出度为0
+                        num++;
+                        res[num] = prerequisites[i][0];
+                        notPre.offer(prerequisites[i][0]);
+                    }
+                }
+            }
+        }
+        return (num+1) == numCourses ? res : new int[0];
+    }
+}
