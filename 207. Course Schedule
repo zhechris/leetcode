@@ -2,37 +2,32 @@
 //1.无环  2.A->B,B出现在A之后(两个特点)
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int [] map= new int[numCourses];
-        //被指向元素的入度
-        for(int i=0;i<prerequisites.length;i++)
-            map[prerequisites[i][1]]++;
-        
-        Queue<Integer> queue= new LinkedList<Integer>();
-        //将入度元素为0的元素加入集合中
-        for(int i=0;i<map.length;i++)
-        {
-            if(map[i]==0)
-                queue.add(i);
+        int preCount[] = new int[numCourses];
+        Queue<Integer> notPre = new LinkedList<Integer>();
+        // 统计每个结点作为前驱的次数
+        for (int i = 0; i < prerequisites.length; i++) {
+            preCount[prerequisites[i][0]]++;
         }
-        
-        int count=queue.size();
-        while(!queue.isEmpty())
-        {
-            int k=queue.remove();//取出第一个元素并移除
-            for(int i=0;i<prerequisites.length;i++)
-            {
-                if(k==prerequisites[i][0])//将该元素的边也移除
-                {
-                    int l=prerequisites[i][1];
-                    map[l]--;// 指向的节点度数-1 
-                    if(map[l]==0)// 如果度数为0,则加入队列中,计数+1 
-                    {
-                        queue.add(l);
-                        ++count;
+        // 记录出度为0的结点
+        for (int i = 0; i < preCount.length; i++) {
+            if (preCount[i] == 0) {
+                notPre.offer(i);
+            }
+        }
+        int num = notPre.size();// 可以拓扑排序的节点个数
+        while (!notPre.isEmpty()) {//BFS
+            int node = notPre.poll();
+            for (int i = 0; i < prerequisites.length; i++) {
+                if (prerequisites[i][1] == node) {
+                    preCount[prerequisites[i][0]]--;//删除和node有关的边
+                    if (preCount[prerequisites[i][0]] == 0) {//如果出度为0
+                        num++;
+                        notPre.offer(prerequisites[i][0]);
                     }
                 }
             }
         }
-        return count==numCourses;// 如果最后count的数字等于元素个数，说明全部遍历完成没有闭环，返回true，否则返回false  
+
+        return num == numCourses;
     }
 }
