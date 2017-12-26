@@ -1,0 +1,99 @@
+/*类前加不加public的区别
+加了可以随便放，可以被其他类引用
+不加只能被类内的方法引用，例如本题也可以这样写
+class TrieNode {
+    boolean isWord;
+    HashMap<Character, TrieNode> nexts;
+
+    public TrieNode() {
+        nexts = new HashMap<Character, TrieNode>();
+    }
+}
+
+
+public class Trie {
+    private TrieNode root;
+
+    public Trie() {
+        root = new TrieNode();
+    }*/
+class Trie {
+    class TrieNode {
+    boolean isWord;
+    HashMap<Character, TrieNode> nexts;
+
+    public TrieNode() {
+        nexts = new HashMap<Character, TrieNode>();
+    }
+}
+    private TrieNode root;
+    
+    /** Initialize your data structure here. */
+    public Trie() {
+         root = new TrieNode();
+    }
+ 
+    /** Inserts a word into the trie. */
+    public void insert(String word) {
+        //char[] s=word.toCharArray();也可以将字符串转换为字符串数组
+        
+        TrieNode p=root;
+        int i=0;
+        int n=word.length();
+        //traverse existing char
+        while(i<n){
+            TrieNode next=p.nexts.get(word.charAt(i));
+            if(next!=null){
+                p=next;
+                i++;
+            }
+            else
+                break;
+        }
+        //append new nodes
+        while(i<n){
+            TrieNode newTrie=new TrieNode();
+            p.nexts.put(word.charAt(i),newTrie);
+            p=newTrie;
+            i++;
+        }
+        //set woed end
+        p.isWord=true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    public boolean search(String word) {
+        TrieNode p=root;
+        for(int i=0;i<word.length();i++){
+            TrieNode child=p.nexts.get(word.charAt(i));
+            if(child==null)
+                return false;
+            else
+                p=child;
+        }
+        return p.isWord;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    public boolean startsWith(String prefix) {
+        TrieNode p = root;
+
+        for (int i = 0; i < prefix.length(); i ++) {
+            TrieNode child = p.nexts.get(prefix.charAt(i));
+            if (child == null) {
+                return false;
+            }
+            p = child;
+        }
+
+        return true;
+    }
+}
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie obj = new Trie();
+ * obj.insert(word);
+ * boolean param_2 = obj.search(word);
+ * boolean param_3 = obj.startsWith(prefix);
+ */
