@@ -1,0 +1,73 @@
+class WordDictionary {
+    class TrieNode {
+    boolean isWord;
+    HashMap<Character, TrieNode> nexts;
+
+    public TrieNode() {
+        nexts = new HashMap<Character, TrieNode>();
+    }
+}
+    private TrieNode root;
+    /** Initialize your data structure here. */
+    public WordDictionary() {
+         root = new TrieNode();
+    }
+    
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        //char[] s=word.toCharArray();也可以将字符串转换为字符串数组
+        
+        TrieNode p=root;
+        int i=0;
+        int n=word.length();
+        //traverse existing char
+        while(i<n){
+            TrieNode next=p.nexts.get(word.charAt(i));
+            if(next!=null){
+                p=next;
+                i++;
+            }
+            else
+                break;
+        }
+        //append new nodes
+        while(i<n){
+            TrieNode newTrie=new TrieNode();
+            p.nexts.put(word.charAt(i),newTrie);
+            p=newTrie;
+            i++;
+        }
+        //set woed end
+        p.isWord=true;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    public boolean search(String word) {
+        return singleSearch(word, root);
+    }
+    public boolean singleSearch(String word, TrieNode head){
+        if(head==null) return false;
+        if(word.length() == 0 ) return head.isWord;
+          
+        Map<Character, TrieNode> children = head.nexts;
+        char c = word.charAt(0);
+        
+        if(c=='.') {
+            for(char key : children.keySet()){  //判断所有孩子的可能
+                if(singleSearch(word.substring(1), children.get(key) )) return true;  
+            }  
+            return false;  
+        }
+        if(children.containsKey(c)){  //进行下一个字符的判断
+            return singleSearch(word.substring(1), children.get(c));
+        }else
+            return false;
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
