@@ -1,0 +1,27 @@
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        int n=nums.length;
+        int cur_sum = 0;//当前的和
+        int min_size =Integer.MAX_VALUE;//子数组最小长度
+        int begin = 0, end = 0;//子数组起始位置
+        while(begin < n)
+        {   
+            if(cur_sum<s && end<n)
+            {//(1)如果当前窗口的数相加没有达到s，则将窗口右移
+                cur_sum += nums[end];
+                end++;
+            }
+            else if(cur_sum >= s)
+            {//(2)如果当前窗口的数相加等于或大于s,则收缩窗口
+                min_size = Math.min(min_size, end-begin);//实为(end-1)-begin+1,之前end已经多加1。
+                cur_sum -= nums[begin++];
+            }
+            else
+            {//(3)cur_sum < s而且end>=n,则退出循环
+                break;
+            }
+        }
+        return (min_size==Integer.MAX_VALUE)?0:min_size;
+        
+    }
+}
