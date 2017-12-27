@@ -1,0 +1,45 @@
+/*注意list和arraylist区别https://www.cnblogs.com/zcscnn/p/7743507.html
+List是一个接口，而ListArray是一个类。 
+ListArray继承并实现了List。 
+所以List不能被构造，但可以向上面那样为List创建一个引用，而ListArray就可以被构造。 
+List list;     //正确   list=null; 
+List list=new List();    //   是错误的用法
+List list = new ArrayList();这句创建了一个ArrayList的对象后把上溯到了List。
+此时它是一个List对象了，有些ArrayList有但是List没有的属性和方法，它就不能再用了。 
+而ArrayList list=new ArrayList();创建一对象则保留了ArrayList的所有属性。 
+这是一个例子： 
+import java.util.*;
+public class TestList{ 
+public static void main(String[] args){ 
+List list = new ArrayList(); 
+ArrayList arrayList = new ArrayList();
+list.trimToSize(); //错误，没有该方法。
+arrayList.trimToSize();   //ArrayList里有该方法。
+} 
+}*/
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> list= new ArrayList<List<Integer>>();
+        
+        if(k<1||n<1)
+            return list;
+        List<Integer> cur=new ArrayList<Integer>();
+        dfs(list,cur,0,k,n,1);
+        return list;
+    }
+    public void dfs(List<List<Integer>> rt,List<Integer> cur, int sum,int k, int n, int level) {
+
+        if (sum == n && k == 0) {
+            rt.add(new ArrayList<Integer>(cur));
+            return;
+        } else if (sum > n || k <= 0) {
+            return;
+        }
+
+        for (int i = level; i <= 9; i++) {
+            cur.add(i);
+            dfs(rt, cur, sum + i, k - 1, n, i + 1);
+            cur.remove(cur.size() - 1);
+        }
+    }
+}
