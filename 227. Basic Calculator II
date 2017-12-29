@@ -1,4 +1,22 @@
 //1.stack之类的数据结构必须是封装的，不能是基本的2.charAt字符串转数组
+/*字符串数组转字符串(只能通过for循环):
+String[] str = {"abc", "bcd", "def"};
+StringBuffer sB = new StringBuffer();
+for(int i = 0; i < str.length;i++)
+{
+    sB.append(str[i]);
+}
+String s = sB.toString();
+字符数组转字符串可以通过下面的方式:
+char[] data = {"abc","bcd","def"};
+String s = new String(data);
+字符串到字符数组:
+String str = "123abc";
+char[] ar = str.toCharArray();　　//char数组
+for(int i =0;i<ar.length;i++)
+{
+　　System.out.println(ar[i]);　　//1 2 3 a b c
+}*/
 class Solution {
     public int calculate(String s) {
         //使用sigh代表前一个运算符，利用栈保存加法或减法运算值，当遇到乘除时，
