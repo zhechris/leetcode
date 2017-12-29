@@ -1,0 +1,36 @@
+class Solution {
+    public int calculate(String s) {
+        //使用sigh代表前一个运算符，利用栈保存加法或减法运算值，当遇到乘除时，
+        //弹出栈顶进行运算，并将结果压栈，最后的结果时将栈中的元素进行相加
+        int res=0;
+        int sum=0;
+        char sigh='+';
+        Stack<Integer> stack=new Stack<Integer>();
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+            if(Character.isDigit(c)){
+                sum=sum*10+c-'0';
+            }
+            if(!Character.isDigit(c)&&s.charAt(i)!=' '||i==s.length()-1){
+                if(sigh=='+'){
+                    stack.push(sum);
+                }else if(sigh=='-'){
+                    stack.push(-sum);
+                }else if(sigh=='*'){
+                    int t=stack.pop();
+                    stack.push(t*sum);
+                }else if(sigh=='/'){
+                    int t=stack.pop();
+                    stack.push(t/sum);
+                }
+                sum=0;
+                sigh=c;
+            }
+        }
+        while(!stack.isEmpty()){
+            res+=stack.pop();
+        }
+        return res;
+
+    }
+}
