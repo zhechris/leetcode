@@ -1,3 +1,4 @@
+//1.stack之类的数据结构必须是封装的，不能是基本的2.charAt字符串转数组
 class Solution {
     public int calculate(String s) {
         //使用sigh代表前一个运算符，利用栈保存加法或减法运算值，当遇到乘除时，
