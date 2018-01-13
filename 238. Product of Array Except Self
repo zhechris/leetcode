@@ -1,0 +1,41 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        if(nums==null||nums.length==0)
+            return null;
+        int sum=1;//all sum
+        int sum0=1;//all sums except 0
+        
+        int count0=0;
+        for(int i:nums){
+            if(i==0)
+                count0++;
+            if(i!=0)
+                sum0*=i;
+            sum*=i;
+        }
+        //0的数量大于2，无论如何全部都是0
+        if(count0>=2){
+            for (int i = 0; i < nums.length; i++) {  //增强型for循环不支持遍历时修改
+                nums[i] = 0;  
+            }  
+            return nums;
+        }
+        
+        if (sum == 0) { //只有一个0，该数本身的结果不为0，其余的数的结果均为0
+            for (int i = 0; i < nums.length; i++) {  
+                if (nums[i] != 0) {  
+                    nums[i] = 0;  
+                } else {  
+                    nums[i] = sum0;  
+                }  
+            }  
+            return nums;  
+  
+        } else { //没有0，直接让总数除以当前的数
+            for (int i = 0; i < nums.length; i++) {  
+                nums[i] = sum / nums[i];  
+            }  
+            return nums;  
+        }  
+    }
+}
