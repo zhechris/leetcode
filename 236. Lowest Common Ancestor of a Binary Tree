@@ -1,0 +1,25 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        //如果找到 p 或者 q 那么就没有必要接着递归，因为共同祖先只可能是该节点或该节点之前的节点 
+        //如果 root 为空了，说明这条路径上不可能有 p 或 q 节点，返回空  
+        if(root==null||root==p||root==q)
+            return root;
+        TreeNode left=lowestCommonAncestor(root.left,p,q);//左边分支上查找
+        TreeNode right=lowestCommonAncestor(root.right,p,q);
+        if(left!=null&&right!=null)//p，q分布在两边
+            return root;
+        else if(left!=null)//分布在left
+            return left;
+        else//分布在right
+            return right;
+    }
+}
