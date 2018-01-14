@@ -1,0 +1,11 @@
+public class Solution {
+    public int lengthOfLIS(int[] nums) {
+        TreeSet<Integer> set = new TreeSet<Integer>();
+        for(int num : nums) {
+            Integer ceil = set.ceiling(num);//返回大于等于指定元素的最小元素
+            if(ceil != null) set.remove(ceil);
+            set.add(num);
+        }
+        return set.size();
+    }
+}
