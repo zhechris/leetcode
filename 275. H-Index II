@@ -1,0 +1,14 @@
+public class Solution {
+    public int hIndex(int[] citations) {
+        int level = 0, n = citations.length, left = 0, right = n - 1;
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(citations[mid] >= n - mid) {  //一旦发现引用次数大于 n-mid，就在左半部查找可能更大的 level
+                level = n - mid;
+                right = mid - 1;
+            }
+            else left = mid + 1;  //说明左半部没有更大的 level，则在右半部查找
+        }
+        return level;
+    }
+}
