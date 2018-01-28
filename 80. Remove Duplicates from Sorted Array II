@@ -1,34 +1,30 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i=0; i<nums.length; i++) {
-            if(!list.contains(nums[i])) {
-                list.add(nums[i]);
-            }
-        }
-        for(int i=0;i<list.size();i++)//这道题有个坑就是只能截取原来数组的前length个，所以要赋值过去
-        {
-            nums[i]=list.get(i);
-        }
-        return list.size();
-    }
-}
-public class Solution {
-    public int removeDuplicates(int[] nums) {
-        if(nums.length==0)
+        ArrayList<Integer> array=new ArrayList<>();
+        if(nums==null||nums.length==0)
             return 0;
-        int count=1;
+        array.add(nums[0]);
+        int j=1;
         for(int i=1;i<nums.length;i++)
         {
             if(nums[i]==nums[i-1])
-                continue;
+            {
+                j++;
+                if(j<=2)
+                    array.add(nums[i]);
+                else
+                    continue;
+            }
             else
             {
-                nums[count]=nums[i];
-                count++;
+                array.add(nums[i]);
+                j=1;
             }
         }
-         return count;   
+        for(int i=0;i<array.size();i++)//这道题有个坑就是只能截取原来数组的前length个，所以要赋值过去
+        {
+            nums[i]=array.get(i);
+        }
+        return array.size();
     }
 }
-
