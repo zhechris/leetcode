@@ -1,20 +1,14 @@
-public class Solution {
+class Solution {
     public int removeElement(int[] nums, int val) {
-        int len = nums.length;
-        if (len==0)
-            return 0;  
-        for(int i = 0; i < len; i++)  
-        {  
-            if(nums[i] == val)  
-            {  
-                for(int j = i; j < len - 1; j++)  
-                {  
-                    nums[j] = nums[j + 1];  
-                }  
-                len--;  
-                i--;//注意将指针向前移动 ,因为删除了一个元素，所以i向前移动一位
-            }  
-        }  
-        return len;  
-    }  
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==val)
+                continue;
+            else{
+                nums[count]=nums[i];
+                count++;
+            }
+        }
+        return count;
+    }
 }
