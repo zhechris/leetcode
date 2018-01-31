@@ -1,4 +1,4 @@
-//从右边开始，找到第一个正序数 nums[i] ，然后从右边找第一个大于 num[i] 的数 nums[j]（j > i），
+//从右边开始，找到第一个从右边开始的非正序数 nums[i] ，然后从右边找第一个大于 num[i] 的数 nums[j]（j > i），
 //找到之后交换 nums[i] 和 nums[j] ，最后将 nums[i + 1] 至 nums[nums.length - 1]之间的数进行反转
 class Solution {
     public void nextPermutation(int[] nums) 
