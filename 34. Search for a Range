@@ -6,28 +6,28 @@ class Solution {
 		int mid, low, high;
         if(nums==null||nums.length==0)
             return result;
-		if (target > nums[right] || target < nums[left])
-			return result;
-
-		while (left <= right) {
-			mid = (left + right) / 2;
-			if (nums[mid] == target) {
-				low = mid;
-				high = mid;
-				while (low >= 0 && nums[low] == target)
-					low--;
-				result[0] = low + 1;
-				while (high < nums.length && nums[high] == target)
-					high++;
-				result[1] = high - 1;
-
-				return result;
-			} else if (nums[mid] > target) {
-				right = mid - 1;
-			} else {
-				left = mid + 1;
-			}
-		}
+	if (target > nums[right] || target < nums[left])
 		return result;
+
+	while (left <= right) {
+		mid = (left + right) / 2;
+		if (nums[mid] == target) {
+			low = mid;
+			high = mid;
+			while (low >= 0 && nums[low] == target)
+				low--;
+			result[0] = low + 1;//minus more 1, so need to add
+			while (high < nums.length && nums[high] == target)
+				high++;
+			result[1] = high - 1;//add more 1,so need to minus, in case out of index
+
+			return result;
+		} else if (nums[mid] > target) {
+			right = mid - 1;
+		} else {
+			left = mid + 1;
+		}
+	}
+	return result;
     }
 }
