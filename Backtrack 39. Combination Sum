@@ -1,28 +1,25 @@
 class Solution {
-   public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        Arrays.sort(candidates); // sort the array
-        recurse(new ArrayList<Integer>(), target, candidates, 0, result);
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result=new ArrayList<>();
+        List<Integer> list=new ArrayList<>();
+        Arrays.sort(candidates); //must sort,or below break will run out of loop
+        recurse(list, target, candidates, 0, result);
         return result;
     }
-
-    /**
-     * do it recursively
-     */
-    public void recurse(List<Integer> list, int target, int[] candidates, int index, List<List<Integer>> result) { // list is one of the answers
-        if (target == 0) {
+    public void recurse(List<Integer>list,int target,int[]candidates,int index, List<List<Integer>> result){
+        if(target==0){
             result.add(list);
             return;
         }
-        for (int i = index; i < candidates.length; i++) {
-            int newTarget = target - candidates[i]; // subtract candidate from target
-            if (newTarget >= 0) {
-                List<Integer> copy = new ArrayList<Integer>(list); // create a copy
+        for(int i=index;i<candidates.length;i++){
+            List<Integer> copy=new ArrayList<>(list);//assign last round value to new copylist
+            int newtarget=target-candidates[i];
+            if(newtarget>=0){
                 copy.add(candidates[i]);
-                recurse(copy, newTarget, candidates, i, result); // see if there is more
-            } else { // run out of target
-                break;
+                recurse(copy,newtarget,candidates,i,result);
             }
+            else
+                break;
         }
     }
 }
