@@ -4,15 +4,16 @@
 * ret:目前为止的jump数 
 * curRch:从A[0]进行ret次jump之后达到的最大范围 
 * curMax:从0~i这i+1个A元素中能达到的最大范围 
-* 当curRch < i，说明ret次jump已经不足以覆盖当前第i个元素，因此需要增加一次jump，使之达到记录的curMax*/
+* 本来想省一跳，但是发现上一轮的最大范围够不到当前position，因此需要增加一次本轮jump，使之达到记录的curMax*/
 class Solution {
     public int jump(int[] nums) {
-        int ret = 0;  
+        int ret = 0;
         int curMax = 0;  
         int curRch = 0;  
         for(int i = 0; i < nums.length; i ++)  
         {  
-            if(curRch < i)  
+            if(curRch < i) //last round jumps cant satisfiy current range,so need to jump.
+                //if dont need, they can save one round jump
             {  
                 ret ++;  
                 curRch = curMax;  
