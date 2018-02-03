@@ -1,9 +1,9 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int[] result = { -1, -1 };
-		int left = 0;
-		int right = nums.length - 1;
-		int mid, low, high;
+	int left = 0;
+	int right = nums.length - 1;
+	int mid, low, high;
         if(nums==null||nums.length==0)
             return result;
 	if (target > nums[right] || target < nums[left])
