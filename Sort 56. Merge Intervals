@@ -15,35 +15,24 @@
 当temp和这个区间不重叠的时候，把temp 加入list，再把这个区间设为新的temp。 */
 class Solution {
     public List<Interval> merge(List<Interval> intervals) {
-        List<Interval> res= new ArrayList<>();
+        List<Interval> res=new ArrayList<>();
         if(intervals.size()==0)
             return res;
-        //sort te list
         Collections.sort(intervals,new Comparator<Interval>(){
-            public int compare(Interval a ,Interval b)
-            {
-                return a.start-b.start;
-            }
-        });
-        
-        Interval temp=intervals.get(0);//begin with first element
-        //only have one element
-        if(intervals.size()==1){
-            res.add(temp);
-            return res;
-        }
-        for(int i=1;i<intervals.size();i++)
-        {
+           public int compare(Interval a, Interval b){
+               return a.start-b.start;
+           } 
+        });//if it is basic data struction such as Integer or String, dont nee to implement compare function. Ohterwise, need implement it first.
+        Interval temp=intervals.get(0);
+        for(int i=1;i<intervals.size();i++){
             if(temp.end>=intervals.get(i).start)
                 temp.end=Math.max(temp.end,intervals.get(i).end);
-            else
-            {
+            else{
                 res.add(temp);
                 temp=intervals.get(i);
             }
         }
-        res.add(temp);//attention:temp=last element,but no other element compare with it,
-        //so we need to deal with that by just adding it to res;
+        res.add(temp);//deal with the last element.
         return res;
     }
 }
