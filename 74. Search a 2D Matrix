@@ -1,24 +1,35 @@
 class Solution {
-    public boolean searchMatrix(int[][] matrix, int target) {
-        if(matrix==null||matrix.length==0||matrix[0].length==0)
-            return false;
-        int i=0,j=0;
-        while(i<matrix.length)
-        {
-            if(target>matrix[i][matrix[i].length-1])
-                i++;
+public boolean searchMatrix(int[][] matrix, int target) {  
+        if(matrix == null || matrix.length==0 || matrix[0].length==0)  
+            return false;  
+        int low = 0;  
+        int high = matrix.length-1;  
+        while(low<=high){  
+            int mid = (low+high)/2;  
+            if(matrix[mid][0] == target)
+                return true;  
+            else if(matrix[mid][0] > target)  
+                high = mid-1; 
             else
-            {
-                while(j<matrix[i].length)
-                {
-                    if(target==matrix[i][j])
-                        return true;
-                    else
-                        j++;
-                }
-                return false;
-            }
+                low = mid+1;  
         }
-        return false;
+        
+        int row = high; //当从while中跳出时，low指向的值肯定比target大，而high指向的值肯定比target小
+        
+        if(row<0) //说明比第一个数还小，return false
+            return false; 
+            
+        low = 0;  
+        high = matrix[0].length-1;  
+        while(low<=high){  
+            int mid = (low+high)/2;  
+            if(matrix[row][mid] == target)
+                return true;  
+            else if(matrix[row][mid] > target)  
+                high = mid-1;
+            else 
+                low = mid+1;  
+        }     
+        return false;  
     }
 }
