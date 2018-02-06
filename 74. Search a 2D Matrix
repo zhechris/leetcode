@@ -1,3 +1,5 @@
+/*就是利用两次二分查找法。因为所给矩阵第一列也是升序排列的，所以可以先对第一列进行二分查找，
+锁定该元素所在行数，然后再对列进行二分查找，即可判断target是否存在。这个的算法时间复杂度是O(log(rows)+log(columns))。 */
 class Solution {
 public boolean searchMatrix(int[][] matrix, int target) {  
         if(matrix == null || matrix.length==0 || matrix[0].length==0)  
