@@ -1,37 +1,37 @@
 /*就是利用两次二分查找法。因为所给矩阵第一列也是升序排列的，所以可以先对第一列进行二分查找，
 锁定该元素所在行数，然后再对列进行二分查找，即可判断target是否存在。这个的算法时间复杂度是O(log(rows)+log(columns))。 */
 class Solution {
-public boolean searchMatrix(int[][] matrix, int target) {  
-        if(matrix == null || matrix.length==0 || matrix[0].length==0)  
-            return false;  
-        int low = 0;  
-        int high = matrix.length-1;  
-        while(low<=high){  
-            int mid = (low+high)/2;  
-            if(matrix[mid][0] == target)
-                return true;  
-            else if(matrix[mid][0] > target)  
-                high = mid-1; 
-            else
-                low = mid+1;  
-        }
-        
-        int row = high; //当从while中跳出时，low指向的值肯定比target大，而high指向的值肯定比target小
-        
-        if(row<0) //说明比第一个数还小，return false
-            return false; 
-            
-        low = 0;  
-        high = matrix[0].length-1;  
-        while(low<=high){  
-            int mid = (low+high)/2;  
-            if(matrix[row][mid] == target)
-                return true;  
-            else if(matrix[row][mid] > target)  
-                high = mid-1;
-            else 
-                low = mid+1;  
-        }     
-        return false;  
-    }
+        public boolean searchMatrix(int[][] matrix, int target) {  
+                if(matrix == null || matrix.length==0 || matrix[0].length==0)  
+                    return false;  
+                int low = 0;  
+                int high = matrix.length-1;  
+                while(low<=high){  
+                    int mid = (low+high)/2;  
+                    if(matrix[mid][0] == target)
+                        return true;  
+                    else if(matrix[mid][0] > target)  
+                        high = mid-1; 
+                    else
+                        low = mid+1;  
+                }
+
+                int row = high; //当从while中跳出时，low指向的值肯定比target大，而high指向的值肯定比target小
+
+                if(row<0) //说明比第一个数还小，return false
+                    return false; 
+
+                low = 0;  
+                high = matrix[0].length-1;  
+                while(low<=high){  
+                    int mid = (low+high)/2;  
+                    if(matrix[row][mid] == target)
+                        return true;  
+                    else if(matrix[row][mid] > target)  
+                        high = mid-1;
+                    else 
+                        low = mid+1;  
+                }     
+                return false;  
+            }
 }
