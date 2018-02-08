@@ -1,17 +1,33 @@
-public class Solution {
+class Solution {
     public List<Integer> getRow(int rowIndex) {
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(1);
-        for (int k = 1; k <= rowIndex; k++) {
-            for (int i = k - 1; i >= 1; i--) {
-                list.set(i, list.get(i) + list.get(i - 1));
+        int numRows=rowIndex+1;
+        List<List<Integer>> res=new ArrayList<>();
+        for(int i=1;i<=numRows;i++){
+            List<Integer> row=new ArrayList<>();
+            if(i==1)
+                row.add(1);
+            else if(i==2){
+                row.add(1);
+                row.add(1);
             }
-            list.add(1);
+            else if(i>=3){
+                for(int j=0;j<i;j++){
+                    if(j==0)
+                        row.add(1);
+                    else if(j==i-1)
+                        row.add(1);
+                    else{
+                        List<Integer> list=res.get(i-2);
+                        row.add(list.get(j-1)+list.get(j));
+                    }
+                }
+            }
+            res.add(row);
         }
-        return list;
+        return res.get(rowIndex);
     }
 }
-//K=0为第一行，从开始到后来一层一层覆盖，a[1]=a[1]+a[0];
+//K=0为第一行,先生成，再提取
 //注意，这个题目k是从0开始的。
 1
 1 1
