@@ -21,8 +21,6 @@ index: 0 1 2 3 4 5 6
 再看这个树的左子树：              右子树：
      先序遍历为: 2 4 5           先序遍历为: 3 6 7 
      中序遍历为: 4 2 5           中序遍历为: 6 3 7
-     通过先序遍历找到第一个点作为根节点，在中序遍历中找到根节点并记录index。
-因为中序遍历中根节点左边为左子树，所以可以记录左子树的长度并在先序遍历中依据这个长度找到左子树的区间，用同样方法可以找到右子树的区间。
      */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -32,17 +30,19 @@ class Solution {
     {
         if(preStart>preEnd||inStart>inEnd)
             return null;
-        int rootVal = pre[preStart];
+        int rootVal = pre[preStart];//通过先序遍历找到第一个点作为根节点
         int rootIndex = 0;
         for(int i=inStart;i<=inEnd;i++)
         {
             if(in[i] == rootVal)
             {
-                 rootIndex = i;
+                 rootIndex = i;//在中序遍历中找到根节点并记录index。
                  break;
              }
         }
-        int len = rootIndex - inStart;
+        int len = rootIndex - inStart;//因为中序遍历中根节点左边为左子树，
+        //所以可以记录左子树的长度并在先序遍历中依据这个长度找到左子树的区间，
+        //用同样方法可以找到右子树的区间。
         TreeNode root = new TreeNode(rootVal);
         root.left = build(pre,preStart+1,preStart+1+len-1,in,inStart,rootIndex-1);
         root.right = build(pre,preStart+len+1,preEnd,in,rootIndex+1,inEnd);
