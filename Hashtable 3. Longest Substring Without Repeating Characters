@@ -26,7 +26,7 @@ class Solution {
                 }
                 map.put(s.charAt(i), i);
                 start = index+1;
-                len = i-index;  
+                len = i-index;  //record last substring length
             }
         }
          return maxlen;
