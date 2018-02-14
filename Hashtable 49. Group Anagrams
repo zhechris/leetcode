@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> result=new ArrayList<>();
+        HashMap<String, List<String>> map=new HashMap<>();
+        for(String s : strs){
+            char[] chars=s.toCharArray();
+            Arrays.sort(chars);// 将char数组按照字典顺序排序
+            String key = String.valueOf(chars);  //valueOf means extract the value, it can be int, string...
+            if(!map.containsKey(key)) //// 排序后的String作为key，
+                map.put(key, new ArrayList<>());  
+            map.get(key).add(s);  
+        }
+        for(String key : map.keySet()) {  
+            List<String> list = new ArrayList<>();
+            list=map.get(key);  
+           // Collections.sort(list);  
+            result.add(list);  
+        }  
+        return result;
+    }
+}
